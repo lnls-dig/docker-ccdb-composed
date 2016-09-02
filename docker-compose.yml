@@ -1,0 +1,35 @@
+version: '2'
+services:
+  ccdb-service:
+    image: lerwys/docker-ccdb-service-wildfly
+    ports:
+      - "8083:8080"
+      - "9993:9990"
+      - "8446:8443"
+    container_name: ccdb-service
+    depends_on:
+      - ccdb-postgres
+    entrypoint: /wait-for-it.sh
+    command: ccdb-postgres:5432 -- /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+    networks:
+      - postgres-ccdb
+
+  ccdb-postgres:
+    image: lerwys/docker-ccdb-postgres
+    ports:
+      - "5435:5432"
+    container_name: ccdb-postgres
+    volumes:
+      - ccdb-postgres-volume:/var/lib/postgresql/data
+    networks:
+      - postgres-ccdb
+    env_file: env-vars/ccdb-postgres-vars.env
+
+volumes:
+  ccdb-postgres-volume:
+    driver: local
+
+networks:
+  postgres-ccdb:
+    external:
+      name: dockerrbacauthservicescomposed_postgres-rbac
