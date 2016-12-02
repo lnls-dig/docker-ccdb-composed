@@ -1,0 +1,13 @@
+[Unit]
+Description=CCDB container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+#ExecStartPre=/bin/mkdir -p /usr/local/etc/docker-ccdb-composed/
+ExecStart=/usr/local/bin/docker-compose -d -f /usr/local/etc/docker-ccdb-composed/docker-composed.yml up
+ExecStop=/usr/local/bin/docker-compose -f /usr/local/etc/docker-ccdb-composed/docker-composed.yml down
+
+[Install]
+WantedBy=multi-user.target
