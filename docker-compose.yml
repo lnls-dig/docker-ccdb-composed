@@ -1,7 +1,7 @@
 version: '2'
 services:
   ccdb-service:
-    image: lnls/docker-ccdb-service-wildfly
+      image: lnls/docker-ccdb-service-wildfly:1.2.3
     ports:
       - "8083:8080"
       - "9993:9990"
@@ -15,7 +15,7 @@ services:
       - postgres-ccdb
 
   ccdb-postgres:
-    image: lnls/docker-ccdb-postgres
+      image: lnls/docker-ccdb-postgres:1.2.3
     ports:
       - "5435:5432"
     container_name: ccdb-postgres
