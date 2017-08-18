@@ -9,6 +9,9 @@ services:
     container_name: ccdb-service
     depends_on:
       - ccdb-postgres
+    dns:
+        - 10.0.0.71
+        - 10.0.0.72
     entrypoint: /wait-for-it.sh
     command: ccdb-postgres:5432 -- /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
     networks:
