@@ -13,14 +13,15 @@ services:
         - 10.0.0.71
         - 10.0.0.72
     extra_hosts:
-      - "sirius-rbac-auth.lnls.br:172.18.0.3"
-      - "sirius-rbac.lnls.br:172.18.0.4"
-      - "sirius-ns.lnls.br:172.18.0.6"
-      - "sirius-cable.lnls.br:172.18.0.8"
+      - "sirius-rbac.lnls.br:172.60.0.3"
+      - "sirius-rbac-auth.lnls.br:172.60.0.4"
+      - "sirius-ns.lnls.br:172.60.0.6"
+      - "sirius-cable.lnls.br:172.60.0.7"
     entrypoint: /wait-for-it.sh
     command: ccdb-postgres:5432 -- /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
     networks:
-      - postgres-ccdb
+      postgres-ccdb:
+        ipv4_address: 172.60.0.8
 
   ccdb-postgres:
     image: lnls/docker-ccdb-postgres:1.2.6-1
@@ -30,7 +31,8 @@ services:
     volumes:
       - ccdb-postgres-volume:/var/lib/postgresql/data
     networks:
-      - postgres-ccdb
+      postgres-ccdb:
+        ipv4_address: 172.60.0.108
     env_file: env-vars/ccdb-postgres-vars.env
 
 volumes:
