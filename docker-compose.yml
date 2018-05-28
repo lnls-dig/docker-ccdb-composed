@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   ccdb-service:
-    image: lnls/docker-ccdb-service-wildfly:1.5.0
+    image: lnls/docker-ccdb-service-wildfly:1.5.0-1
     ports:
       - "8083:8080"
       - "9993:9990"
@@ -24,7 +24,7 @@ services:
         ipv4_address: 172.60.0.8
 
   ccdb-postgres:
-    image: lnls/docker-ccdb-postgres:1.5.0
+    image: lnls/docker-ccdb-postgres:1.5.0-1
     ports:
       - "5435:5432"
     container_name: ccdb-postgres
