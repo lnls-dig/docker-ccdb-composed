@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 services:
   ccdb-service:
     image: lnls/docker-ccdb-service-wildfly:1.2.6-1
